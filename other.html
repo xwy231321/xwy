@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 其他公告 - xwy工坊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #5d4e70;
+            --secondary-color: #8a79a9;
+            --accent-color: #6a5a8c;
+            --light-bg: #faf9ff;
+            --card-bg: #ffffff;
+            --gradient-purple: linear-gradient(135deg, #b8a9c9 0%, #a2c4e0 100%);
+            --border-color: #e0d9e9;
+            --success-color: #4caf50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #3a3a5c;
+            background: var(--light-bg);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-weight: 400;
+        }
+
+        .announcement-card {
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0f7ff 100%);
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(93, 78, 112, 0.15);
+            margin: 40px auto;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(184, 169, 201, 0.08) 0%, rgba(162, 196, 224, 0.08) 100%);
+            transform: rotate(45deg) translate(50px, -70px);
+            border-radius: 40px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #f0edf9, #b8a9c9, #f0edf9);
+            margin: 25px 0;
+            border-radius: 2px;
+        }
+
+        .highlight-box {
+            background: rgba(184, 169, 201, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid #b8a9c9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23b8a9c9' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.2;
+        }
+
+        .highlight-box.blue {
+            background: rgba(162, 196, 224, 0.1);
+            border-left: 4px solid #a2c4e0;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 20px;
+            color: var(--success-color);
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .status-badge i {
+            font-size: 1.2rem;
+        }
+
+        .github-link {
+            display: block;
+            text-align: center;
+            background: var(--gradient-purple);
+            color: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin: 40px 0 15px;
+            font-size: 1.4rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(93, 78, 112, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .github-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(93, 78, 112, 0.3);
+        }
+
+        .github-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+        }
+
+        .github-link i {
+            margin-right: 10px;
+        }
+
+        .url-display {
+            text-align: center;
+            color: #7a6b94;
+            font-size: 1.1rem;
+            font-family: monospace;
+            padding: 10px;
+            background: rgba(122, 107, 148, 0.08);
+            border-radius: 8px;
+            margin: 0 auto;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px 0;
+            color: #7a6b94;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .announcement-card, header {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .announcement-card {
+                padding: 25px 20px;
+                margin: 20px auto;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .github-link {
+                font-size: 1.2rem;
+                padding: 18px 15px;
+            }
+            
+            .url-display {
+                font-size: 0.95rem;
+            }
+            
+            .divider {
+                margin: 20px 0;
+            }
+            
+            .highlight-box {
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            .github-link {
+                font-size: 1.1rem;
+            }
+            
+            .url-display {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <i class="fas fa-stars"></i>
+                <span>🌌 其他公告</span>
+            </h1>
+        </header>
+        
+        <div class="announcement-card">
+            <div class="card-pattern"></div>
+            
+            <div class="notice-section">
+                <h2><i class="fas fa-bullhorn"></i> 📢 通知</h2>
+                
+                <h3><i class="fas fa-ban"></i> 🚫 公众号无限期停更</h3>
+                <div class="divider"></div>
+                
+                <h3><i class="fas fa-globe"></i> 🌐 网站视近期情况开放</h3>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="highlight-box">
+                <h2><i class="fas fa-chart-line"></i> 📊 当前资源状态</h2>
+                
+                <div class="status-item">
+                    <h3><i class="fas fa-check-circle"></i> ✅ GitHub仓库已更新完毕</h3>
+                    <div class="status-badge">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                        <span>最新版本: v1.0.7(未发布)</span>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <h3><i class="fas fa-cloud-upload-alt"></i> 📈 已同步云盘所有资料90%</h3>
+                    <div class="status-badge">
+                        <i class="fas fa-truck-loading"></i>
+                        <span>剩余资料文件过大不在同步</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box blue">
+                <h2><i class="fas fa-hands-helping"></i> 🤝 试卷贡献方式</h2>
+                
+                <h3><i class="fas fa-lightbulb"></i> 💡 如有资料提供：</h3>
+                <h3><i class="fas fa-link"></i> 🔗 请直接发起</h3>
+                
+                <div class="github-links">
+                    <a href="https://github.com/xwy231321/xwy/issues" class="github-link" style="margin-top: 30px;">
+                        <i class="fab fa-github"></i> 👉 Issues
+                    </a>
+                    
+                    <a href="https://github.com/xwy231321/xwy/pulls" class="github-link">
+                        <i class="fas fa-code-branch"></i> 👉 PR (Pull Requests)
+                    </a>
+                </div>
+            </div>
+            
+            <div class="access-section">
+                <h2><i class="fas fa-door-open"></i> 🌐 当前页面访问入口</h2>
+                
+                <a href="https://alist.xwy231321.work/" class="github-link">
+                    <i class="fas fa-external-link-alt"></i> GitHub Pages 链接
+                </a>
+                
+                <p class="url-display">https://alist.xwy231321.work/</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 xwy工坊 | 知识共享平台</p>
+            <p>联系我们: xwy231321@gmail.com</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 添加简单的动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.highlight-box, .github-link');
+            
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = 0;
+                    el.style.transform = 'translateY(20px)';
+                    el.style.animation = 'fadeIn 0.6s forwards';
+                    el.style.animationDelay = `${index * 0.1}s`;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -22,7 +22,7 @@
 
 
 <div style="display: flex; justify-content: center; gap: 40px; margin: 50px 0;">
-  <a href="试卷.md" style="text-decoration: none; display: block; transition: all 0.3s ease;">
+  <a href="试卷.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
     <div style="text-align: center;">
       <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(180, 150, 100, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -37,7 +37,7 @@
     </div>
   </a>
   
-  <a href="other.md" style="text-decoration: none; display: block; transition: all 0.3s ease;">
+  <a href="other.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
     <div style="text-align: center;">
       <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(180, 150, 100, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">

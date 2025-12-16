@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 试卷合集 | xwy工坊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #3a3a5c;
+            background: linear-gradient(135deg, #f8f7ff, #e8e2ff);
+            min-height: 100vh;
+            padding: 30px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(93, 78, 112, 0.15);
+            overflow: hidden;
+            position: relative;
+            padding: 40px;
+        }
+        
+
+        .header-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #b8a9c9, #a2c4e0, #b8a9c9);
+        }
+        
+        h1, h2, h3, h4 {
+            color: #5d4e70;
+            letter-spacing: 0.5px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-top: 20px;
+            position: relative;
+            font-weight: 600;
+        }
+        
+        h1::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #b8a9c9, #a2c4e0);
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            color: #7a6b94;
+            border-left: 4px solid #b8a9c9;
+            padding: 15px 20px;
+            margin: 20px 0 40px;
+            background: #f9f7fc;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 50px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0d9e9;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        h2 i {
+            font-size: 1.4rem;
+            color: #8a79a9;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 40px 0 20px;
+            color: #6a5a8c;
+        }
+        
+
+        .year-card {
+            background: linear-gradient(135deg, #f5f2ff, #f0edf9);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(93, 78, 112, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .year-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .year-card h2 {
+            background: linear-gradient(135deg, #b8a9c9 0%, #a2c4e0 100%);
+            color: white;
+            margin: 0;
+            padding: 18px 25px;
+            border: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 16px 25px;
+            text-align: left;
+        }
+        
+        thead {
+            background: rgba(184, 169, 201, 0.15);
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #ece9f2;
+            transition: background 0.3s ease;
+        }
+        
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background: rgba(162, 196, 224, 0.1);
+        }
+        
+        tbody td:first-child {
+            font-weight: 500;
+            color: #5d4e70;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        a {
+            color: #6a5a8c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        a:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8a79a9;
+            transition: width 0.3s ease;
+        }
+        
+        a:hover {
+            color: #8a79a9;
+        }
+        
+        a:hover:after {
+            width: 100%;
+        }
+        
+        .folder-section {
+            background: linear-gradient(135deg, #f5f2ff, #f0edf9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(93, 78, 112, 0.08);
+        }
+        
+        .folder-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #b8a9c9 0%, #a2c4e0 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            margin: 15px 0 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(93, 78, 112, 0.2);
+        }
+        
+        .folder-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(93, 78, 112, 0.3);
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0 30px;
+        }
+        
+        ul li {
+            background: rgba(184, 169, 201, 0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        ul li:hover {
+            background: rgba(184, 169, 201, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .subject-icon {
+            font-size: 1.1rem;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #f0edf9, #b8a9c9, #f0edf9);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        footer {
+            text-align: center;
+            color: #7a6b94;
+            padding: 20px 0 10px;
+            font-size: 0.9rem;
+        }
+        
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+            
+            ul li {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .folder-section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            ul li {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-decoration"></div>
+        
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> 试卷合集 | xwy工坊</h1>
+            <div class="subtitle">内容已经恢复云盘九成多内容，已按年级分类整理</div>
+        </header>
+        
+        <hr>
+        
+        <!-- 大一学年 -->
+        <section class="year-card">
+            <h2><i class="fas fa-seedling"></i> 大一</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>科目</th>
+                        <th>链接</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="subject-icon">📚</span> 大学英语</td>
+                        <td><a href="试卷/A大一/大学英语/大学英语.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🔬</span> 大学物理</td>
+                        <td><a href="试卷/A大一/大学物理/大学物理.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">💻</span> c语言</td>
+                        <td><a href="试卷/A大一/c语言/c语言.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">📖</span> 大学语文</td>
+                        <td><a href="试卷/A大一/大学语文/大学语文.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">⚡</span> 电路</td>
+                        <td><a href="试卷/A大一/电路/电路.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">∫</span> 高等数学</td>
+                        <td><a href="试卷/A大一/高等数学/高等数学.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">📐</span> 工程制图</td>
+                        <td><a href="试卷/A大一/工程制图/工程制图.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🖥️</span> 计算机基础</td>
+                        <td><a href="试卷/A大一/计算机基础/计算机基础.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🎖️</span> 军事理论</td>
+                        <td><a href="试卷/A大一/军事理论/军事理论.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">⚙️</span> 理论力学</td>
+                        <td><a href="试卷/A大一/理论力学/理论力学.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🛠️</span> 实习类</td>
+                        <td><a href="试卷/A大一/实习类/实习类.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">📊</span> 数据结构-思政思修-遥感导论-中华民族共同体</td>
+                        <td><a href="试卷/A大一/数据结构-思政思修-遥感导论-中华民族共同体/数据结构-思政思修-遥感导论-中华民族共同体.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">➗</span> 线性代数</td>
+                        <td><a href="试卷/A大一/线性代数/线性代数.html">查看试卷</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- 大二学年 -->
+        <section class="year-card">
+            <h2><i class="fas fa-leaf"></i> 大二</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>科目</th>
+                        <th>链接</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="subject-icon">🔌</span> 51单片机-STM32单片机-计算机组成原理-工程电磁场</td>
+                        <td><a href="试卷/B大二/51单片机-STM32单片机-计算机组成原理-工程电磁场/51单片机-STM32单片机-计算机组成原理-工程电磁场.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🧪</span> 大物实验</td>
+                        <td><a href="试卷/B大二/大物实验/大物实验.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">∞</span> 复变函数</td>
+                        <td><a href="试卷/B大二/复变函数/复变函数.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">🎲</span> 概率论</td>
+                        <td><a href="试卷/B大二/概率论/概率论.html">查看试卷</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="subject-icon">📈</span> 毛概-模电-软件工程-数电-数据结构信电-数字地形测量学-自控</td>
+                        <td><a href="试卷/B大二/毛概-模电-软件工程-数电-数据结构信电-数字地形测量学-自控/毛概-模电-软件工程-数电-数据结构信电-数字地形测量学-自控.html">查看试卷</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- 大三学年 -->
+        <section class="folder-section">
+            <h2><i class="fas fa-tree"></i> 大三</h2>
+            <a href="试卷/C大三/C大三.html" class="folder-link">
+                <i class="fas fa-folder-open"></i> 点击此处打开大三全部内容
+            </a>
+            
+            <h3><i class="fas fa-star"></i> 包括：</h3>
+            <ul>
+                <li><i class="fas fa-flask"></i> 材料表界面</li>
+                <li><i class="fas fa-cubes"></i> 材料力学性能</li>
+                <li><i class="fas fa-bolt"></i> 电机学-22年冬天</li>
+                <li><i class="fas fa-plug"></i> 电力电子技术</li>
+                <li><i class="fas fa-book"></i> 电力电子历年考试题</li>
+                <li><i class="fas fa-car-battery"></i> 电力系统稳态-22年冬</li>
+                <li><i class="fas fa-laptop-code"></i> 计算机在材料科学中的应用</li>
+                <li><i class="fas fa-building"></i> 结构设计</li>
+                <li><i class="fas fa-vial"></i> 树脂基</li>
+                <li><i class="fas fa-calculator"></i> 数值计算</li>
+                <li><i class="fas fa-book-reader"></i> 习思想</li>
+            </ul>
+        </section>
+        
+        <!-- 其他部分 -->
+        <section class="folder-section">
+            <h2><i class="fas fa-archive"></i> 其他</h2>
+            <a href="试卷/其他/其他.html" class="folder-link">
+                <i class="fas fa-folder-open"></i> 点击此处打开其他全部内容
+            </a>
+            
+            <h3><i class="fas fa-star"></i> 包括：</h3>
+            <ul>
+                <li><i class="fas fa-desktop"></i> cad2006和cass7.0</li>
+                <li><i class="fas fa-robot"></i> DeepSeek</li>
+                <li><i class="fas fa-flask"></i> 材料科学基础上</li>
+                <li><i class="fas fa-flask"></i> 复合材料学</li>
+                <li><i class="fas fa-infinity"></i> 高等代数</li>
+                <li><i class="fas fa-flask"></i> 高聚物合成工艺学</li>
+                <li><i class="fas fa-flask"></i> 工程化学</li>
+                <li><i class="fas fa-drafting-compass"></i> 结构力学</li>
+                <li><i class="fas fa-calculator"></i> 离散数学课件</li>
+                <li><i class="fas fa-vial"></i> 树脂基复合材料</li>
+                <li><i class="fas fa-globe"></i> 四级相关</li>
+                <li><i class="fas fa-flask"></i> 无机+部分有机-习题及答案</li>
+                <li><i class="fas fa-heartbeat"></i> 医学类</li>
+                <li><i class="fas fa-file-pdf"></i> 1_材科上-单选题题库 (3).pdf</li>
+                <li><i class="fas fa-file-pdf"></i> 19202土力学试卷A(1).pdf</li>
+                <li><i class="fas fa-file-word"></i> 材料复合原理.doc</li>
+                <li><i class="fas fa-file-word"></i> 高分子物理.docx</li>
+                <li><i class="fas fa-file-powerpoint"></i> 机械设计基础重点讲解.pptx</li>
+                <li><i class="fas fa-file-pdf"></i> 新概念模拟电路.pdf</li>
+                <li><i class="fas fa-file-pdf"></i> 旋元佑进阶文法2013年简体版.pdf</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>© 2025 xwy工坊 | 试卷合集 | 内容持续更新中</p>
+        </footer>
+    </div>
+</body>
+</html>
