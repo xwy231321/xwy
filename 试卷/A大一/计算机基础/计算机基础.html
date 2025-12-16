@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xwy工坊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0f8ff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .file-browser {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            min-height: 600px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-browser::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .path-display {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .path-display i {
+            margin: 0 8px;
+            color: #bbb;
+        }
+
+        .folders-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .folder-group {
+            flex: 1;
+            min-width: 300px;
+            background: #f8fafc;
+            border: 1px solid #eaeff5;
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .folder-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            border-color: #d6e4ff;
+        }
+
+        .folder-group h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeff5;
+            display: flex;
+            align-items: center;
+        }
+
+        .folder-group h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .subfolders {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .subfolder {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 16px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+
+        .subfolder:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+            transform: translateY(-3px);
+            border-color: #c2e0ff;
+        }
+
+        .subfolder h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subfolder h4 i {
+            margin-right: 8px;
+            color: #3498db;
+        }
+
+        .file-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .file-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(37, 117, 252, 0.2);
+        }
+
+        .file-btn i {
+            margin-right: 6px;
+        }
+
+        .file-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(37, 117, 252, 0.3);
+            background: linear-gradient(135deg, #5e0fba 0%, #1d66e0 100%);
+        }
+
+        .pdf-btn {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            box-shadow: 0 4px 6px rgba(255, 75, 43, 0.2);
+        }
+        
+        .pdf-btn:hover {
+            background: linear-gradient(135deg, #e03a60 0%, #e04327 100%);
+            box-shadow: 0 6px 10px rgba(255, 75, 43, 0.3);
+        }
+        
+        .doc-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            box-shadow: 0 4px 6px rgba(17, 153, 142, 0.2);
+        }
+        
+        .doc-btn:hover {
+            background: linear-gradient(135deg, #0d7c74 0%, #2ec26a 100%);
+            box-shadow: 0 6px 10px rgba(17, 153, 142, 0.3);
+        }
+
+        .img-btn {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            box-shadow: 0 4px 6px rgba(247, 151, 30, 0.2);
+        }
+        
+        .img-btn:hover {
+            background: linear-gradient(135deg, #e08a1b 0%, #e6be00 100%);
+            box-shadow: 0 6px 10px rgba(247, 151, 30, 0.3);
+        }
+        
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-20px);
+            animation: modalAppear 0.4s ease forwards;
+        }
+
+        @keyframes modalAppear {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-btn i {
+            margin-right: 8px;
+        }
+
+        .preview-btn {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(32, 227, 178, 0.3);
+        }
+
+        .cancel-btn {
+            background: #f1f2f6;
+            color: #7f8c8d;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 图片预览模态框 */
+        .image-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .image-preview-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .previewed-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .close-preview {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-preview:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .folders-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>文件浏览器</h1>
+            <p class="subtitle">浏览仓库目录结构，预览或下载您需要的文件，pdf支持预览，其余请下载</p>
+        </header>
+        
+        <main class="file-browser">
+            <div class="path-display">
+                <i class="fas fa-folder"></i>
+                <span>当前路径：/A大一/计算机基础</span>
+            </div>
+            
+            <div class="folders-container" id="foldersContainer">
+                <!-- 文件夹组将由JavaScript动态生成 -->
+            </div>
+        </main>
+        
+        <!-- 文件操作模态框 -->
+        <div class="modal" id="fileModal">
+            <div class="modal-content">
+                <h2>文件操作</h2>
+                <p id="fileNameDisplay">请选择您想要执行的操作</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn preview-btn" id="previewBtn">
+                        <i class="fas fa-eye"></i> 预览文件
+                    </button>
+                    <button class="modal-btn download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                    <button class="modal-btn cancel-btn" id="cancelBtn">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图片预览模态框 -->
+        <div class="image-preview-modal" id="imagePreviewModal">
+            <div class="image-preview-content">
+                <img id="previewedImage" class="previewed-image" src="" alt="图片预览">
+                <button class="close-preview" id="closeImagePreview">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 xwy工坊</p>
+        </footer>
+    </div>
+
+    <script>
+        // 根据提供的目录结构构建文件树
+        const repoStructure = {
+  "root": [
+    {
+      name: "",
+      type: "folder",
+      children: [
+        {
+          name: "大一上",
+          type: "folder",
+          children: [
+            {
+              name: "1---2020级-“大学计算机”（1）课程教学统一说明.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "1-2021大计(1)机房材料.rar",
+              type: "file",
+              fileType: "archive"
+            },
+            {
+              name: "4新-算法思维.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "大学计算机1期末复习题库及答案.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "大学计算机基础大一考试必备题库.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "大学计算机授课重点 (1).docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "大学计算机题库(1)(1)(1).docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "大学计算机题库（3）.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "大学计算机E2E平台选择题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "第4章 算法思维.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第4章算法描述练习参考答案不唯一new(1).docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "计算机导论知识点总结(全网最全).doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "计算机基础练习题1.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "计算机基础期末复习资料.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "计算机简答题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "计算机整体内容.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "计算思维导论练习2019.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "新建 DOCX 文档.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "选择 题库（总）.docx",
+              type: "file",
+              fileType: "doc"
+            }
+          ]
+        },
+        {
+          name: "python题库",
+          type: "folder",
+          children: [
+            {
+              name: "编程题题库",
+              type: "folder",
+              children: [
+                {
+                  name: "python编程 照片 版本三.doc",
+                  type: "file",
+                  fileType: "doc"
+                },
+                {
+                  name: "Python编程题 版本二.docx",
+                  type: "file",
+                  fileType: "doc"
+                },
+                {
+                  name: "python编程题 版本一.doc",
+                  type: "file",
+                  fileType: "doc"
+                },
+                {
+                  name: "Python考试涉及到代码 23及以前的.docx",
+                  type: "file",
+                  fileType: "doc"
+                }
+              ]
+            },
+            {
+              name: "表白墙-河北工程大学Python程序设计基础复习参考",
+              type: "folder",
+              children: [
+                {
+                  name: "题目集标准代码",
+                  type: "folder",
+                  children: [
+                    {
+                      name: "1.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "10.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "11.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "12.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "13.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "14.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "15.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "16.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "17.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "18.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "19.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "2.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "20.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "21.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "22.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "23.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "24.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "25.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "26.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "27.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "28.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "3.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "4.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "5.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "6.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "7.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "8.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "9.py",
+                      type: "file",
+                      fileType: "code"
+                    }
+                  ]
+                },
+                {
+                  name: "E2E平台全部编程题代码Python版",
+                  type: "folder",
+                  children: [
+                    {
+                      name: "0101.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0102.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0201.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0202.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0301.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0302.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0303.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0304.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0305.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0306.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0307.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0308.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0309.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0310.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0311.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0312.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0313.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0401.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0402.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0403.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0404.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0405.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0406.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0407.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0408.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0409.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0410.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0411.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0412.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0413.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0414.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0415.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0416.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0417.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0418.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0419.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0420.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0421.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0422.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0423.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0424.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0425.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0426.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0427.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0428.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0429.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0430.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0431.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0432.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0433.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0434.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0435.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0436.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0438.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0439.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0440.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0441.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0442.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0443.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0444.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0445.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0501.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0502.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0503.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0504.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0505.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0506.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0507.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0508.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0509.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0510.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0511.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0512.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0513.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0514.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0515.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0516.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0517.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0518.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0519.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0601.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0602.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0603.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0604.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0605.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0606.py",
+                      type: "file",
+                      fileType: "code"
+                    },
+                    {
+                      name: "0607.py",
+                      type: "file",
+                      fileType: "code"
+                    }
+                  ]
+                },
+                {
+                  name: "大学计算机2期末试卷参考.pdf",
+                  type: "file",
+                  fileType: "pdf"
+                },
+                {
+                  name: "Python程序设计精选题目集.pdf",
+                  type: "file",
+                  fileType: "pdf"
+                },
+                {
+                  name: "Python选择题参考文档.pdf",
+                  type: "file",
+                  fileType: "pdf"
+                }
+              ]
+            },
+            {
+              name: "选择题题库",
+              type: "folder",
+              children: [
+                {
+                  name: "各章分文档",
+                  type: "folder",
+                  children: [
+                    {
+                      name: "第2章Python编程基础.docx",
+                      type: "file",
+                      fileType: "doc"
+                    },
+                    {
+                      name: "第3章数据类型与基本运算--删后77道.docx",
+                      type: "file",
+                      fileType: "doc"
+                    },
+                    {
+                      name: "第4章程序控制结构与异常处理--删后81道.docx",
+                      type: "file",
+                      fileType: "doc"
+                    },
+                    {
+                      name: "第5章函数与模块--删后51道.docx",
+                      type: "file",
+                      fileType: "doc"
+                    },
+                    {
+                      name: "第6章常用算法设计策略及其Python实现--删后26道(1).docx",
+                      type: "file",
+                      fileType: "doc"
+                    }
+                  ]
+                },
+                {
+                  name: "python选择题题库  版本三.docx",
+                  type: "file",
+                  fileType: "doc"
+                },
+                {
+                  name: "python选择题题库 版本二.docx",
+                  type: "file",
+                  fileType: "doc"
+                },
+                {
+                  name: "Python选择题题库 版本一.docx",
+                  type: "file",
+                  fileType: "doc"
+                }
+              ]
+            },
+            {
+              name: "DevCpp提供-程序设计题-更新到24届",
+              type: "folder",
+              children: [
+                {
+                  name: "0101.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0102.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0201.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0202.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0301.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0302.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0303.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0304.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0305.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0306.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0307.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0308.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0309.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0310.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0311.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0312.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0313.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0401.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0402.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0403.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0404.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0405.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0406.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0407.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0408.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0409.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0410.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0411.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0412.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0413.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0414.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0415.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0416.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0417.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0418.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0419.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0420.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0421.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0422.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0423.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0424.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0425.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0426.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0427.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0428.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0429.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0430.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0431.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0432.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0433.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0434.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0435.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0436.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0438.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0439.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0440.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0441.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0442.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0443.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0444.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0445.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0501.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0502.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0503.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0504.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0505.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0506.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0507.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0508.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0509.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0510.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0511.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0512.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0513.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0514.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0515.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0516.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0517.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0518.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0519.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0601.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0602.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0603.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0604.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0605.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0606.py",
+                  type: "file",
+                  fileType: "code"
+                },
+                {
+                  name: "0607.py",
+                  type: "file",
+                  fileType: "code"
+                }
+              ]
+            },
+            {
+              name: "DevCpp提供-Python原稿",
+              type: "folder",
+              children: [
+                {
+                  name: "Python选择.pdf",
+                  type: "file",
+                  fileType: "pdf"
+                },
+                {
+                  name: "Python选择题参考文档.pdf",
+                  type: "file",
+                  fileType: "pdf"
+                }
+              ]
+            },
+            {
+              name: "python-e2e截屏",
+              type: "folder",
+              children: [
+                {
+                  name: "1.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "10.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "11.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "12.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "13.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "14.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "15.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "16.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "17.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "18.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "19.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "2.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "20.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "21.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "22.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "23.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "24.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "25.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "26.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "27.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "28.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "29.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "3.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "30.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "31.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "32.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "33.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "34.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "35.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "36.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "37.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "38.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "39.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "4.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "40.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "41.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "42.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "43.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "44.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "45.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "46.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "47.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "48.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "49.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "5.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "50.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "51.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "52.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "53.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "54.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "55.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "56.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "57.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "58.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "59.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "6.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "60.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "61.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "62.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "63.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "64.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "65.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "66.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "67.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "68.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "69.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "7.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "70.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "71.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "72.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "73.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "74.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "75.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "76.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "77.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "78.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "79.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "8.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "80.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "81.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "82.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "83.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "84.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "85.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "86.jpeg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "87.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "88.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "89.png",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "9.png",
+                  type: "file",
+                  fileType: "img"
+                }
+              ]
+            },
+            {
+              name: "课后习题.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "知识点复习-Python.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "DevCpp提供-Python程序设计重点知识梳理-无水印版.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "Python+编程_核心知识.zip",
+              type: "file",
+              fileType: "archive"
+            }
+          ]
+        },
+        {
+          name: "e2e查看日常题选择题答案方法.png",
+          type: "file",
+          fileType: "img"
+        }
+      ]
+    }
+  ]
+};
+
+        // 当前选择的文件路径
+        let currentFilePath = '';
+        let currentFileName = '';
+        let currentFileType = '';
+
+        // DOM元素
+        const foldersContainer = document.getElementById('foldersContainer');
+        const fileModal = document.getElementById('fileModal');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const previewBtn = document.getElementById('previewBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const imagePreviewModal = document.getElementById('imagePreviewModal');
+        const previewedImage = document.getElementById('previewedImage');
+        const closeImagePreview = document.getElementById('closeImagePreview');
+
+        // 获取文件图标
+        function getFileIcon(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return '<i class="fas fa-file-pdf"></i>';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return '<i class="fas fa-file-word"></i>';
+                case 'ppt':
+                case 'pptx':
+                    return '<i class="fas fa-file-powerpoint"></i>';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return '<i class="fas fa-file-image"></i>';
+                case 'video':
+                    return '<i class="fas fa-file-video"></i>';
+                default:
+                    return '<i class="fas fa-file"></i>';
+            }
+        }
+        
+        // 获取文件按钮类名
+        function getFileButtonClass(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return 'file-btn pdf-btn';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return 'file-btn doc-btn';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return 'file-btn img-btn';
+                default:
+                    return 'file-btn';
+            }
+        }
+
+        // 渲染文件夹结构
+        function renderFolderStructure() {
+            foldersContainer.innerHTML = '';
+            
+            repoStructure.root.forEach(folder => {
+                const folderGroup = document.createElement('div');
+                folderGroup.className = 'folder-group';
+                
+                const folderHeader = `<h3><i class="fas fa-folder"></i> ${folder.name}</h3>`;
+                let subfoldersHTML = '<div class="subfolders">';
+                
+                folder.children.forEach(subfolder => {
+                    if (subfolder.type === 'file') {
+                        // 如果是文件，则跳过（根目录下的文件单独处理）
+                        return;
+                    }
+                    
+                    let filesHTML = '';
+                    let subsubfoldersHTML = '';
+                    
+                    // 处理子文件夹下的文件和子子文件夹
+                    subfolder.children.forEach(item => {
+                        if (item.type === 'file') {
+                            const fileType = item.fileType || 'file';
+                            const btnClass = getFileButtonClass(fileType);
+                            
+                            filesHTML += `
+                                <button class="${btnClass}" 
+                                        data-path="${folder.name}/${subfolder.name}/${item.name}"
+                                        data-name="${item.name}"
+                                        data-file-type="${fileType}">
+                                    <span class="file-icon">${getFileIcon(fileType)}</span> ${item.name}
+                                </button>
+                            `;
+                        } else if (item.type === 'folder') {
+                            // 处理子子文件夹
+                            let subsubfilesHTML = '';
+                            
+                            item.children.forEach(subitem => {
+                                if (subitem.type === 'file') {
+                                    const fileType = subitem.fileType || 'file';
+                                    const btnClass = getFileButtonClass(fileType);
+                                    
+                                    subsubfilesHTML += `
+                                        <button class="${btnClass}" 
+                                                data-path="${folder.name}/${subfolder.name}/${item.name}/${subitem.name}"
+                                                data-name="${subitem.name}"
+                                                data-file-type="${fileType}">
+                                            <span class="file-icon">${getFileIcon(fileType)}</span> ${subitem.name}
+                                        </button>
+                                    `;
+                                }
+                            });
+                            
+                            subsubfoldersHTML += `
+                                <div class="subfolder">
+                                    <h4><i class="fas fa-folder-open"></i> ${item.name}</h4>
+                                    <div class="file-buttons">${subsubfilesHTML}</div>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    subfoldersHTML += `
+                        <div class="subfolder">
+                            <h4><i class="fas fa-folder-open"></i> ${subfolder.name}</h4>
+                            <div class="file-buttons">${filesHTML}</div>
+                            ${subsubfoldersHTML ? `<div class="subfolders">${subsubfoldersHTML}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                subfoldersHTML += '</div>';
+                
+                folderGroup.innerHTML = folderHeader + subfoldersHTML;
+                foldersContainer.appendChild(folderGroup);
+            });
+            
+            // 添加文件按钮点击事件
+            document.querySelectorAll('.file-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentFilePath = this.getAttribute('data-path');
+                    currentFileName = this.getAttribute('data-name');
+                    currentFileType = this.getAttribute('data-file-type');
+                    fileNameDisplay.textContent = `操作文件：${currentFileName}`;
+                    
+                    // 只有PDF和图片文件显示预览按钮
+                    if (currentFileType === 'pdf') {
+                        previewBtn.style.display = 'flex';
+                    } else {
+                        previewBtn.style.display = 'none';
+                    }
+                    
+                    fileModal.style.display = 'flex';
+                });
+            });
+        }
+
+        // 文件操作按钮事件
+        previewBtn.addEventListener('click', function() {
+            // 根据文件类型处理预览
+            if (currentFileType === 'pdf' || currentFileName.endsWith('.pdf')) {
+                // PDF文件使用PDF.js预览
+                const encodedPath = encodeURIComponent(currentFilePath);
+                const previewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=https://alist.xwy231321.work/试卷/A大一/计算机基础/${encodedPath}`;
+                window.open(previewUrl, '_blank');
+            } else {
+                // 图片文件在当前页面居中弹窗预览
+                const imageUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/A大一/计算机基础/${encodeURIComponent(currentFilePath)}`;
+                previewedImage.src = imageUrl;
+                imagePreviewModal.style.display = 'flex';
+            }
+            fileModal.style.display = 'none';
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const encodedPath = encodeURIComponent(currentFilePath);
+            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/A大一/计算机基础/${encodedPath}`;
+            window.open(downloadUrl, '_blank');
+            fileModal.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            fileModal.style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === fileModal) {
+                fileModal.style.display = 'none';
+            } else if (event.target === imagePreviewModal) {
+                imagePreviewModal.style.display = 'none';
+            }
+        });
+
+        // 关闭图片预览
+        closeImagePreview.addEventListener('click', function() {
+            imagePreviewModal.style.display = 'none';
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', renderFolderStructure);
+    </script>
+</body>
+</html>

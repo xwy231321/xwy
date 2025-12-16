@@ -1,0 +1,5 @@
+n = int(input())
+nums = list(map(int, input().split()))
+max_val = max(nums)
+min_index = nums.index(max_val)
+print(f"{max_val} {min_index}")
