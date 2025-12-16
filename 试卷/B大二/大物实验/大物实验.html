@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xwy工坊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0f8ff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .file-browser {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            min-height: 600px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-browser::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .path-display {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .path-display i {
+            margin: 0 8px;
+            color: #bbb;
+        }
+
+        .folders-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .folder-group {
+            flex: 1;
+            min-width: 300px;
+            background: #f8fafc;
+            border: 1px solid #eaeff5;
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .folder-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            border-color: #d6e4ff;
+        }
+
+        .folder-group h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeff5;
+            display: flex;
+            align-items: center;
+        }
+
+        .folder-group h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .subfolders {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .subfolder {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 16px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+
+        .subfolder:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+            transform: translateY(-3px);
+            border-color: #c2e0ff;
+        }
+
+        .subfolder h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subfolder h4 i {
+            margin-right: 8px;
+            color: #3498db;
+        }
+
+        .file-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .file-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(37, 117, 252, 0.2);
+        }
+
+        .file-btn i {
+            margin-right: 6px;
+        }
+
+        .file-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(37, 117, 252, 0.3);
+            background: linear-gradient(135deg, #5e0fba 0%, #1d66e0 100%);
+        }
+
+        .pdf-btn {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            box-shadow: 0 4px 6px rgba(255, 75, 43, 0.2);
+        }
+        
+        .pdf-btn:hover {
+            background: linear-gradient(135deg, #e03a60 0%, #e04327 100%);
+            box-shadow: 0 6px 10px rgba(255, 75, 43, 0.3);
+        }
+        
+        .doc-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            box-shadow: 0 4px 6px rgba(17, 153, 142, 0.2);
+        }
+        
+        .doc-btn:hover {
+            background: linear-gradient(135deg, #0d7c74 0%, #2ec26a 100%);
+            box-shadow: 0 6px 10px rgba(17, 153, 142, 0.3);
+        }
+
+        .img-btn {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            box-shadow: 0 4px 6px rgba(247, 151, 30, 0.2);
+        }
+        
+        .img-btn:hover {
+            background: linear-gradient(135deg, #e08a1b 0%, #e6be00 100%);
+            box-shadow: 0 6px 10px rgba(247, 151, 30, 0.3);
+        }
+        
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-20px);
+            animation: modalAppear 0.4s ease forwards;
+        }
+
+        @keyframes modalAppear {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-btn i {
+            margin-right: 8px;
+        }
+
+        .preview-btn {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(32, 227, 178, 0.3);
+        }
+
+        .cancel-btn {
+            background: #f1f2f6;
+            color: #7f8c8d;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 图片预览模态框 */
+        .image-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .image-preview-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .previewed-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .close-preview {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-preview:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .folders-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>文件浏览器</h1>
+            <p class="subtitle">浏览仓库目录结构，预览或下载您需要的文件，pdf支持预览，其余请下载</p>
+        </header>
+        
+        <main class="file-browser">
+            <div class="path-display">
+                <i class="fas fa-folder"></i>
+                <span>当前路径：/B大二/大物实验</span>
+            </div>
+            
+            <div class="folders-container" id="foldersContainer">
+                <!-- 文件夹组将由JavaScript动态生成 -->
+            </div>
+        </main>
+        
+        <!-- 文件操作模态框 -->
+        <div class="modal" id="fileModal">
+            <div class="modal-content">
+                <h2>文件操作</h2>
+                <p id="fileNameDisplay">请选择您想要执行的操作</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn preview-btn" id="previewBtn">
+                        <i class="fas fa-eye"></i> 预览文件
+                    </button>
+                    <button class="modal-btn download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                    <button class="modal-btn cancel-btn" id="cancelBtn">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图片预览模态框 -->
+        <div class="image-preview-modal" id="imagePreviewModal">
+            <div class="image-preview-content">
+                <img id="previewedImage" class="previewed-image" src="" alt="图片预览">
+                <button class="close-preview" id="closeImagePreview">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 xwy工坊</p>
+        </footer>
+    </div>
+
+    <script>
+        // 根据提供的目录结构构建文件树
+        const repoStructure = {
+  "root": [
+    {
+      name: "",
+      type: "folder",
+      children: [
+        {
+          name: "磁滞回线",
+          type: "folder",
+          children: [
+            {
+              name: "磁滞回线1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线7.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "磁滞回线8.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "电热法",
+          type: "folder",
+          children: [
+            {
+              name: "电热法1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法10.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法11.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法12.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法13.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法14.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法7.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法8.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "电热法9.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "分光计调整",
+          type: "folder",
+          children: [
+            {
+              name: "分光计调整1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "分光计调整2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "分光计调整3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "分光计调整4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "分光计调整5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "分光计调整6.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "光的等厚干涉",
+          type: "folder",
+          children: [
+            {
+              name: "光的等厚干涉1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光的等厚干涉2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光的等厚干涉3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光的等厚干涉4.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "光电效应",
+          type: "folder",
+          children: [
+            {
+              name: "光电效应1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "光电效应7.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "惠斯通电桥法测中值电阻",
+          type: "folder",
+          children: [
+            {
+              name: "A1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "A2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "B1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "B2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "B3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "B4.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "密立根油滴",
+          type: "folder",
+          children: [
+            {
+              name: "密立根油滴实验1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "密立根油滴实验7.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "模拟静电场",
+          type: "folder",
+          children: [
+            {
+              name: "模拟静电场1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "模拟静电场2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "模拟静电场3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "模拟静电场4.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "扭摆法",
+          type: "folder",
+          children: [
+            {
+              name: "扭摆法1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法10.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法11.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法12.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法7.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法8.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "扭摆法9.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "热敏电阻",
+          type: "folder",
+          children: [
+            {
+              name: "热敏电阻1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "热敏电阻2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "热敏电阻3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "热敏电阻4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "热敏电阻5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "热敏电阻6.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "声速测定",
+          type: "folder",
+          children: [
+            {
+              name: "声速测定1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "声速测定2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "声速测定3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "声速测定4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "声速测定5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "声速测定6.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "示波器的使用",
+          type: "folder",
+          children: [
+            {
+              name: "示波器的使用1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "示波器的使用2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "示波器的使用3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "示波器的使用4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "示波器的使用5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "示波器的使用6.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "水力学实验报告",
+          type: "folder",
+          children: [
+            {
+              name: "142DF31832B3CC7C4E580295CBD9F9B5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "51991B8580AB08D494E6F2AD359DEE93.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "9A844707AD15A79717ACD4EE6621F7DB.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "A0BB9B1718A7E838A693E684C9B61AE2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "C7D2AC6535585D3D294F2475DE294605.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "FEB1FC765F30947835873CF1ED26D2AA.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "弦振动",
+          type: "folder",
+          children: [
+            {
+              name: "弦振动1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动10.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动11.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动12.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动6.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动7.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动8.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "弦振动9.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "1_21-22-1物理实验课表（主校区+科信）.docx",
+          type: "file",
+          fileType: "doc"
+        },
+        {
+          name: "大物实验.html",
+          type: "file",
+          fileType: "code"
+        }
+      ]
+    }
+  ]
+};
+
+        // 当前选择的文件路径
+        let currentFilePath = '';
+        let currentFileName = '';
+        let currentFileType = '';
+
+        // DOM元素
+        const foldersContainer = document.getElementById('foldersContainer');
+        const fileModal = document.getElementById('fileModal');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const previewBtn = document.getElementById('previewBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const imagePreviewModal = document.getElementById('imagePreviewModal');
+        const previewedImage = document.getElementById('previewedImage');
+        const closeImagePreview = document.getElementById('closeImagePreview');
+
+        // 获取文件图标
+        function getFileIcon(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return '<i class="fas fa-file-pdf"></i>';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return '<i class="fas fa-file-word"></i>';
+                case 'ppt':
+                case 'pptx':
+                    return '<i class="fas fa-file-powerpoint"></i>';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return '<i class="fas fa-file-image"></i>';
+                case 'video':
+                    return '<i class="fas fa-file-video"></i>';
+                default:
+                    return '<i class="fas fa-file"></i>';
+            }
+        }
+        
+        // 获取文件按钮类名
+        function getFileButtonClass(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return 'file-btn pdf-btn';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return 'file-btn doc-btn';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return 'file-btn img-btn';
+                default:
+                    return 'file-btn';
+            }
+        }
+
+        // 渲染文件夹结构
+        function renderFolderStructure() {
+            foldersContainer.innerHTML = '';
+            
+            repoStructure.root.forEach(folder => {
+                const folderGroup = document.createElement('div');
+                folderGroup.className = 'folder-group';
+                
+                const folderHeader = `<h3><i class="fas fa-folder"></i> ${folder.name}</h3>`;
+                let subfoldersHTML = '<div class="subfolders">';
+                
+                folder.children.forEach(subfolder => {
+                    if (subfolder.type === 'file') {
+                        // 如果是文件，则跳过（根目录下的文件单独处理）
+                        return;
+                    }
+                    
+                    let filesHTML = '';
+                    let subsubfoldersHTML = '';
+                    
+                    // 处理子文件夹下的文件和子子文件夹
+                    subfolder.children.forEach(item => {
+                        if (item.type === 'file') {
+                            const fileType = item.fileType || 'file';
+                            const btnClass = getFileButtonClass(fileType);
+                            
+                            filesHTML += `
+                                <button class="${btnClass}" 
+                                        data-path="${folder.name}/${subfolder.name}/${item.name}"
+                                        data-name="${item.name}"
+                                        data-file-type="${fileType}">
+                                    <span class="file-icon">${getFileIcon(fileType)}</span> ${item.name}
+                                </button>
+                            `;
+                        } else if (item.type === 'folder') {
+                            // 处理子子文件夹
+                            let subsubfilesHTML = '';
+                            
+                            item.children.forEach(subitem => {
+                                if (subitem.type === 'file') {
+                                    const fileType = subitem.fileType || 'file';
+                                    const btnClass = getFileButtonClass(fileType);
+                                    
+                                    subsubfilesHTML += `
+                                        <button class="${btnClass}" 
+                                                data-path="${folder.name}/${subfolder.name}/${item.name}/${subitem.name}"
+                                                data-name="${subitem.name}"
+                                                data-file-type="${fileType}">
+                                            <span class="file-icon">${getFileIcon(fileType)}</span> ${subitem.name}
+                                        </button>
+                                    `;
+                                }
+                            });
+                            
+                            subsubfoldersHTML += `
+                                <div class="subfolder">
+                                    <h4><i class="fas fa-folder-open"></i> ${item.name}</h4>
+                                    <div class="file-buttons">${subsubfilesHTML}</div>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    subfoldersHTML += `
+                        <div class="subfolder">
+                            <h4><i class="fas fa-folder-open"></i> ${subfolder.name}</h4>
+                            <div class="file-buttons">${filesHTML}</div>
+                            ${subsubfoldersHTML ? `<div class="subfolders">${subsubfoldersHTML}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                subfoldersHTML += '</div>';
+                
+                folderGroup.innerHTML = folderHeader + subfoldersHTML;
+                foldersContainer.appendChild(folderGroup);
+            });
+            
+            // 添加文件按钮点击事件
+            document.querySelectorAll('.file-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentFilePath = this.getAttribute('data-path');
+                    currentFileName = this.getAttribute('data-name');
+                    currentFileType = this.getAttribute('data-file-type');
+                    fileNameDisplay.textContent = `操作文件：${currentFileName}`;
+                    
+                    // 只有PDF和图片文件显示预览按钮
+                    if (currentFileType === 'pdf') {
+                        previewBtn.style.display = 'flex';
+                    } else {
+                        previewBtn.style.display = 'none';
+                    }
+                    
+                    fileModal.style.display = 'flex';
+                });
+            });
+        }
+
+        // 文件操作按钮事件
+        previewBtn.addEventListener('click', function() {
+            // 根据文件类型处理预览
+            if (currentFileType === 'pdf' || currentFileName.endsWith('.pdf')) {
+                // PDF文件使用PDF.js预览
+                const encodedPath = encodeURIComponent(currentFilePath);
+                const previewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=https://alist.xwy231321.work/试卷/B大二/大物实验/${encodedPath}`;
+                window.open(previewUrl, '_blank');
+            } else {
+                // 图片文件在当前页面居中弹窗预览
+                const imageUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/B大二/大物实验/${encodeURIComponent(currentFilePath)}`;
+                previewedImage.src = imageUrl;
+                imagePreviewModal.style.display = 'flex';
+            }
+            fileModal.style.display = 'none';
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const encodedPath = encodeURIComponent(currentFilePath);
+            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/B大二/大物实验/${encodedPath}`;
+            window.open(downloadUrl, '_blank');
+            fileModal.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            fileModal.style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === fileModal) {
+                fileModal.style.display = 'none';
+            } else if (event.target === imagePreviewModal) {
+                imagePreviewModal.style.display = 'none';
+            }
+        });
+
+        // 关闭图片预览
+        closeImagePreview.addEventListener('click', function() {
+            imagePreviewModal.style.display = 'none';
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', renderFolderStructure);
+    </script>
+</body>
+</html>
