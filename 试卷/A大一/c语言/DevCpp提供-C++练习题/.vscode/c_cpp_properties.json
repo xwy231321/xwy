@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    // c的相关配置
+      {
+          "name": "Win32_C", // 配置名称
+          "includePath": [
+              "${workspaceFolder}/**"
+          ],
+          "defines": [
+              "_DEBUG",
+              "UNICODE",
+              "_UNICODE"
+          ],
+          "compilerPath": "C:\\mingw64\\bin\\gcc.exe", // 编译器路径
+          "cStandard": "c17",
+          "cppStandard": "c++23",
+          "intelliSenseMode": "gcc-x64" // IntelliSense 模式
+      },
+      // 新增的c++的相关配置
+      {
+          "name": "win32_C++",
+          "includePath": [
+              "${workspaceFolder}/**"
+          ],
+          "defines": [
+              "_DEBUG",
+              "UNICODE",
+              "_UNICODE"
+          ],
+          "compilerPath": "C:/mingw64/bin/g++.exe",
+          "cStandard": "c17",
+          "cppStandard": "c++17",
+          "intelliSenseMode": "gcc-x64"
+      }
+    ],
+  "version": 4
+  }
+  
