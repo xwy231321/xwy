@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xwy工坊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0f8ff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .file-browser {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            min-height: 600px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-browser::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .path-display {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .path-display i {
+            margin: 0 8px;
+            color: #bbb;
+        }
+
+        .folders-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .folder-group {
+            flex: 1;
+            min-width: 300px;
+            background: #f8fafc;
+            border: 1px solid #eaeff5;
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .folder-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            border-color: #d6e4ff;
+        }
+
+        .folder-group h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeff5;
+            display: flex;
+            align-items: center;
+        }
+
+        .folder-group h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .subfolders {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .subfolder {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 16px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+
+        .subfolder:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+            transform: translateY(-3px);
+            border-color: #c2e0ff;
+        }
+
+        .subfolder h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subfolder h4 i {
+            margin-right: 8px;
+            color: #3498db;
+        }
+
+        .file-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .file-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(37, 117, 252, 0.2);
+        }
+
+        .file-btn i {
+            margin-right: 6px;
+        }
+
+        .file-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(37, 117, 252, 0.3);
+            background: linear-gradient(135deg, #5e0fba 0%, #1d66e0 100%);
+        }
+
+        .pdf-btn {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            box-shadow: 0 4px 6px rgba(255, 75, 43, 0.2);
+        }
+        
+        .pdf-btn:hover {
+            background: linear-gradient(135deg, #e03a60 0%, #e04327 100%);
+            box-shadow: 0 6px 10px rgba(255, 75, 43, 0.3);
+        }
+        
+        .doc-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            box-shadow: 0 4px 6px rgba(17, 153, 142, 0.2);
+        }
+        
+        .doc-btn:hover {
+            background: linear-gradient(135deg, #0d7c74 0%, #2ec26a 100%);
+            box-shadow: 0 6px 10px rgba(17, 153, 142, 0.3);
+        }
+
+        .img-btn {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            box-shadow: 0 4px 6px rgba(247, 151, 30, 0.2);
+        }
+        
+        .img-btn:hover {
+            background: linear-gradient(135deg, #e08a1b 0%, #e6be00 100%);
+            box-shadow: 0 6px 10px rgba(247, 151, 30, 0.3);
+        }
+        
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-20px);
+            animation: modalAppear 0.4s ease forwards;
+        }
+
+        @keyframes modalAppear {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-btn i {
+            margin-right: 8px;
+        }
+
+        .preview-btn {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #0cebeb 0%, #20e3b2 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(32, 227, 178, 0.3);
+        }
+
+        .cancel-btn {
+            background: #f1f2f6;
+            color: #7f8c8d;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 图片预览模态框 */
+        .image-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .image-preview-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .previewed-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .close-preview {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-preview:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .folders-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>文件浏览器</h1>
+            <p class="subtitle">浏览仓库目录结构，预览或下载您需要的文件，pdf支持预览，其余请下载</p>
+        </header>
+        
+        <main class="file-browser">
+            <div class="path-display">
+                <i class="fas fa-folder"></i>
+                <span>当前路径：/其他</span>
+            </div>
+            
+            <div class="folders-container" id="foldersContainer">
+                <!-- 文件夹组将由JavaScript动态生成 -->
+            </div>
+        </main>
+        
+        <!-- 文件操作模态框 -->
+        <div class="modal" id="fileModal">
+            <div class="modal-content">
+                <h2>文件操作</h2>
+                <p id="fileNameDisplay">请选择您想要执行的操作</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn preview-btn" id="previewBtn">
+                        <i class="fas fa-eye"></i> 预览文件
+                    </button>
+                    <button class="modal-btn download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                    <button class="modal-btn cancel-btn" id="cancelBtn">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图片预览模态框 -->
+        <div class="image-preview-modal" id="imagePreviewModal">
+            <div class="image-preview-content">
+                <img id="previewedImage" class="previewed-image" src="" alt="图片预览">
+                <button class="close-preview" id="closeImagePreview">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 xwy工坊</p>
+        </footer>
+    </div>
+
+    <script>
+        // 根据提供的目录结构构建文件树
+        const repoStructure = {
+  "root": [
+    {
+      name: "",
+      type: "folder",
+      children: [
+        {
+          name: "材料科学基础上",
+          type: "folder",
+          children: [
+            {
+              name: "1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "5.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "复合材料学",
+          type: "folder",
+          children: [
+            {
+              name: "1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "3.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "高等代数",
+          type: "folder",
+          children: [
+            {
+              name: "高等代数A卷.docx",
+              type: "file",
+              fileType: "doc"
+            }
+          ]
+        },
+        {
+          name: "高聚物合成工艺学",
+          type: "folder",
+          children: [
+            {
+              name: "1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "3.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "4.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "5.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "样卷(1).docx",
+              type: "file",
+              fileType: "doc"
+            }
+          ]
+        },
+        {
+          name: "工程化学",
+          type: "folder",
+          children: [
+            {
+              name: "第二章复习提纲.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第二章总结.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第四章复习提纲.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第四章总结.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第五章复习提纲.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "第五章总结.pdf",
+              type: "file",
+              fileType: "pdf"
+            }
+          ]
+        },
+        {
+          name: "结构力学",
+          type: "folder",
+          children: [
+            {
+              name: "24-25",
+              type: "folder",
+              children: [
+                {
+                  name: "2425 结构力学1.jpg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "2425结构力学2.jpg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "2425结构力学3.jpg",
+                  type: "file",
+                  fileType: "img"
+                },
+                {
+                  name: "2425结构力学4.jpg",
+                  type: "file",
+                  fileType: "img"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "离散数学课件",
+          type: "folder",
+          children: [
+            {
+              name: "0-离散数学课程介绍.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "1.1-集合的有关概念.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "1.2-映射的有关概念.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "1.3-运算的定义及性质.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "1.4-1.5集合的运算、划分与覆盖.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.1-关系的概念.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.2-关系的运算.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.3-关系的性质.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.4-关系的闭包.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.5-等价关系.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.6-相容关系.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "2.7-偏序关系.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.1-命题的有关概念.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.2-逻辑联结词.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.3-命题公式及其真值表.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.4-逻辑等值的命题公式.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.6-联结词集合的功能完备性.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "3.7-命题逻辑中的推理.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.1-个体、谓词、量词和函词.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.2-谓词公式及命题的符号化.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.3-谓词公式的解释及类型.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.4-逻辑等值的谓词公式 .ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.5-谓词公式的前束范式.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "4.6-谓词逻辑中的推理.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.1-图的基本概念.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.2-节点的度数.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.3-子图、图的运算和图同构.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.4-路与回路.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.5-图的连通性.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.6-图的矩阵表示.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "6.7-赋权图及最短路径.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "7.1-欧拉图.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "7.2-哈密顿图.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "7.3-无向树.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "7.4-有向树.ppt",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "离散数学 (第4版, 邓辉文).7z",
+              type: "file",
+              fileType: "7z"
+            },
+            {
+              name: "微信图片_20240605111141.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "微信图片_20240605111153.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "微信图片_20240605111158.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "微信图片_20240605111203.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "树脂基复合材料",
+          type: "folder",
+          children: [
+            {
+              name: "1.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "2.jpg",
+              type: "file",
+              fileType: "img"
+            },
+            {
+              name: "3.jpg",
+              type: "file",
+              fileType: "img"
+            }
+          ]
+        },
+        {
+          name: "四级相关",
+          type: "folder",
+          children: [
+            {
+              name: "翻译预测13篇.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "翻译预测15篇（常考类型）.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "四级英语作文模板(重点推荐).pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "新四六级作文高分模板.pdf",
+              type: "file",
+              fileType: "pdf"
+            }
+          ]
+        },
+        {
+          name: "无机+部分有机-习题及答案",
+          type: "folder",
+          children: [
+            {
+              name: "13第十三章-烷烃.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "14第十四章-烯烃、炔烃.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "15第十五章-芳香烃.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "1第一章-气体、溶液和溶胶.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "5第五章-酸碱解离平衡和沉淀-溶解平衡.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "6第六章-氧化还原与电极电势11.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "7第七章-原子结构与元素周期律.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "8第八章-化学键与分子结构.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "9第九章-配位化合物.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "有机化学第一部分-习题及答案.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "有机化学总练习1.ppt",
+              type: "file",
+              fileType: "ppt"
+            }
+          ]
+        },
+        {
+          name: "医学类",
+          type: "folder",
+          children: [
+            {
+              name: "解剖学习通习题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "解剖运动系统骨学.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "解剖运动系统关节学.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "解剖运动系统肌学.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "生理选择题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "生物化学题库(带答案).docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "细胞生物复习题.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "细胞生物学知识点梳理(1).doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "细胞周期练习题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "医学细胞生物学.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "遗传划重点.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "遗传重点.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "遗传最终版6.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "组胚大题.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "组胚复习重点.docx",
+              type: "file",
+              fileType: "doc"
+            }
+          ]
+        },
+        {
+          name: "杂项",
+          type: "folder",
+          children: [
+            {
+              name: "1_材科上-单选题题库 (3).pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "19202土力学试卷A(1).pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "材料复合原理.doc",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "高分子物理.docx",
+              type: "file",
+              fileType: "doc"
+            },
+            {
+              name: "机械设计基础重点讲解.pptx",
+              type: "file",
+              fileType: "ppt"
+            },
+            {
+              name: "新概念模拟电路.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "旋元佑进阶文法2013年简体版.pdf",
+              type: "file",
+              fileType: "pdf"
+            }
+          ]
+        },
+        {
+          name: "DeepSeek",
+          type: "folder",
+          children: [
+            {
+              name: "10天精通 DeepSeek 含40案例.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "DeepSeek 和 通义万相AI生成视频.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "deepseek 与mj做 AI 视频教程.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "DeepSeek Kimi 即梦配合使用.pdf",
+              type: "file",
+              fileType: "pdf"
+            },
+            {
+              name: "DeepSeek从入门到精通(20250204).pdf",
+              type: "file",
+              fileType: "pdf"
+            }
+          ]
+        },
+        {
+          name: "其他.html",
+          type: "file",
+          fileType: "code"
+        }
+      ]
+    }
+  ]
+};
+
+        // 当前选择的文件路径
+        let currentFilePath = '';
+        let currentFileName = '';
+        let currentFileType = '';
+
+        // DOM元素
+        const foldersContainer = document.getElementById('foldersContainer');
+        const fileModal = document.getElementById('fileModal');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const previewBtn = document.getElementById('previewBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const imagePreviewModal = document.getElementById('imagePreviewModal');
+        const previewedImage = document.getElementById('previewedImage');
+        const closeImagePreview = document.getElementById('closeImagePreview');
+
+        // 获取文件图标
+        function getFileIcon(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return '<i class="fas fa-file-pdf"></i>';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return '<i class="fas fa-file-word"></i>';
+                case 'ppt':
+                case 'pptx':
+                    return '<i class="fas fa-file-powerpoint"></i>';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return '<i class="fas fa-file-image"></i>';
+                case 'video':
+                    return '<i class="fas fa-file-video"></i>';
+                default:
+                    return '<i class="fas fa-file"></i>';
+            }
+        }
+        
+        // 获取文件按钮类名
+        function getFileButtonClass(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return 'file-btn pdf-btn';
+                case 'doc':
+                case 'docx':
+                case 'doc':
+                    return 'file-btn doc-btn';
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'img':
+                    return 'file-btn img-btn';
+                default:
+                    return 'file-btn';
+            }
+        }
+
+        // 渲染文件夹结构
+        function renderFolderStructure() {
+            foldersContainer.innerHTML = '';
+            
+            repoStructure.root.forEach(folder => {
+                const folderGroup = document.createElement('div');
+                folderGroup.className = 'folder-group';
+                
+                const folderHeader = `<h3><i class="fas fa-folder"></i> ${folder.name}</h3>`;
+                let subfoldersHTML = '<div class="subfolders">';
+                
+                folder.children.forEach(subfolder => {
+                    if (subfolder.type === 'file') {
+                        // 如果是文件，则跳过（根目录下的文件单独处理）
+                        return;
+                    }
+                    
+                    let filesHTML = '';
+                    let subsubfoldersHTML = '';
+                    
+                    // 处理子文件夹下的文件和子子文件夹
+                    subfolder.children.forEach(item => {
+                        if (item.type === 'file') {
+                            const fileType = item.fileType || 'file';
+                            const btnClass = getFileButtonClass(fileType);
+                            
+                            filesHTML += `
+                                <button class="${btnClass}" 
+                                        data-path="${folder.name}/${subfolder.name}/${item.name}"
+                                        data-name="${item.name}"
+                                        data-file-type="${fileType}">
+                                    <span class="file-icon">${getFileIcon(fileType)}</span> ${item.name}
+                                </button>
+                            `;
+                        } else if (item.type === 'folder') {
+                            // 处理子子文件夹
+                            let subsubfilesHTML = '';
+                            
+                            item.children.forEach(subitem => {
+                                if (subitem.type === 'file') {
+                                    const fileType = subitem.fileType || 'file';
+                                    const btnClass = getFileButtonClass(fileType);
+                                    
+                                    subsubfilesHTML += `
+                                        <button class="${btnClass}" 
+                                                data-path="${folder.name}/${subfolder.name}/${item.name}/${subitem.name}"
+                                                data-name="${subitem.name}"
+                                                data-file-type="${fileType}">
+                                            <span class="file-icon">${getFileIcon(fileType)}</span> ${subitem.name}
+                                        </button>
+                                    `;
+                                }
+                            });
+                            
+                            subsubfoldersHTML += `
+                                <div class="subfolder">
+                                    <h4><i class="fas fa-folder-open"></i> ${item.name}</h4>
+                                    <div class="file-buttons">${subsubfilesHTML}</div>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    subfoldersHTML += `
+                        <div class="subfolder">
+                            <h4><i class="fas fa-folder-open"></i> ${subfolder.name}</h4>
+                            <div class="file-buttons">${filesHTML}</div>
+                            ${subsubfoldersHTML ? `<div class="subfolders">${subsubfoldersHTML}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                subfoldersHTML += '</div>';
+                
+                folderGroup.innerHTML = folderHeader + subfoldersHTML;
+                foldersContainer.appendChild(folderGroup);
+            });
+            
+            // 添加文件按钮点击事件
+            document.querySelectorAll('.file-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentFilePath = this.getAttribute('data-path');
+                    currentFileName = this.getAttribute('data-name');
+                    currentFileType = this.getAttribute('data-file-type');
+                    fileNameDisplay.textContent = `操作文件：${currentFileName}`;
+                    
+                    // 只有PDF和图片文件显示预览按钮
+                    if (currentFileType === 'pdf') {
+                        previewBtn.style.display = 'flex';
+                    } else {
+                        previewBtn.style.display = 'none';
+                    }
+                    
+                    fileModal.style.display = 'flex';
+                });
+            });
+        }
+
+        // 文件操作按钮事件
+        previewBtn.addEventListener('click', function() {
+            // 根据文件类型处理预览
+            if (currentFileType === 'pdf' || currentFileName.endsWith('.pdf')) {
+                // PDF文件使用PDF.js预览
+                const encodedPath = encodeURIComponent(currentFilePath);
+                const previewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=https://alist.xwy231321.work/试卷/其他/${encodedPath}`;
+                window.open(previewUrl, '_blank');
+            } else {
+                // 图片文件在当前页面居中弹窗预览
+                const imageUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/其他/${encodeURIComponent(currentFilePath)}`;
+                previewedImage.src = imageUrl;
+                imagePreviewModal.style.display = 'flex';
+            }
+            fileModal.style.display = 'none';
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const encodedPath = encodeURIComponent(currentFilePath);
+            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/其他/${encodedPath}`;
+            window.open(downloadUrl, '_blank');
+            fileModal.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            fileModal.style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === fileModal) {
+                fileModal.style.display = 'none';
+            } else if (event.target === imagePreviewModal) {
+                imagePreviewModal.style.display = 'none';
+            }
+        });
+
+        // 关闭图片预览
+        closeImagePreview.addEventListener('click', function() {
+            imagePreviewModal.style.display = 'none';
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', renderFolderStructure);
+    </script>
+</body>
+</html>
