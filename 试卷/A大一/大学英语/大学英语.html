@@ -452,7 +452,7 @@
         const repoStructure = {
   "root": [
     {
-      name: "根目录",
+      name: "",
       type: "folder",
       children: [
         {
@@ -766,8 +766,7 @@
                     fileNameDisplay.textContent = `操作文件：${currentFileName}`;
                     
                     // 只有PDF和图片文件显示预览按钮
-                    if (currentFileType === 'pdf' || currentFileType === 'img' || 
-                        currentFileName.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i)) {
+                    if (currentFileType === 'pdf') {
                         previewBtn.style.display = 'flex';
                     } else {
                         previewBtn.style.display = 'none';
@@ -797,7 +796,7 @@
 
         downloadBtn.addEventListener('click', function() {
             const encodedPath = encodeURIComponent(currentFilePath);
-            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/${encodedPath}`;
+            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/A大一/大学英语/${encodedPath}`;
             window.open(downloadUrl, '_blank');
             fileModal.style.display = 'none';
         });
