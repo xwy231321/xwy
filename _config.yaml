@@ -8,3 +8,14 @@ gist:
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
+# _config.yml
+plugins:
+  - jekyll-github-metadata
+
+# 禁用页脚
+github: 
+  is_project_page: false
+  show_downloads: false
+
+# 或使用自定义布局
+footer_content: ""  # 清空页脚内容
