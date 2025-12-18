@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #f5f3f0, #e8e5de);
@@ -22,7 +23,7 @@
             color: #333;
             padding: 20px;
         }
-        
+
         .container {
             width: 100%;
             max-width: 800px;
@@ -34,7 +35,7 @@
             padding: 40px 30px;
             margin: 20px;
         }
-        
+
 
         .circle-decor-1 {
             position: absolute;
@@ -47,7 +48,7 @@
             opacity: 0.2;
             z-index: 0;
         }
-        
+
         .circle-decor-2 {
             position: absolute;
             bottom: 40px;
@@ -59,7 +60,7 @@
             opacity: 0.15;
             z-index: 0;
         }
-        
+
         .header-section {
             text-align: center;
             margin-bottom: 50px;
@@ -68,7 +69,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .header-section h1 {
             font-size: 2.8rem;
             font-weight: 300;
@@ -78,7 +79,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .header-section h1::after {
             content: '';
             position: absolute;
@@ -88,15 +89,15 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #d4af37, transparent);
         }
-        
+
         .license-tag {
             margin-top: 20px;
         }
-        
+
         .license-tag a {
             text-decoration: none;
         }
-        
+
         .license-badge {
             display: inline-block;
             background: rgba(180, 150, 100, 0.1);
@@ -107,12 +108,12 @@
             color: #5a5a5a;
             transition: all 0.3s ease;
         }
-        
+
         .license-badge span {
             color: #d4af37;
             font-weight: 500;
         }
-        
+
         .cards-container {
             display: flex;
             justify-content: center;
@@ -122,13 +123,13 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .card {
             text-decoration: none;
             display: block;
             transition: all 0.3s ease;
         }
-        
+
         .card-inner {
             text-align: center;
             width: 190px;
@@ -138,7 +139,7 @@
             box-shadow: 0 6px 15px rgba(180, 150, 100, 0.1);
             transition: all 0.3s ease;
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -151,12 +152,12 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-        
+
         .card-icon svg {
             width: 36px;
             height: 36px;
         }
-        
+
         .card-title {
             display: block;
             font-size: 1.2rem;
@@ -165,7 +166,7 @@
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
-        
+
         .design-signature {
             position: absolute;
             bottom: 20px;
@@ -177,74 +178,75 @@
             transform: rotate(-5deg);
             z-index: 0;
         }
-        
+
         .card:hover .card-inner {
             transform: translateY(-8px);
         }
-        
+
         .card:hover .card-icon {
             transform: translateY(-5px);
             background: rgba(212, 175, 55, 0.15);
             border-color: rgba(180, 150, 100, 0.4);
         }
-        
+
         .card:hover .card-title {
             color: #d4af37;
         }
-        
+
         .license-badge:hover {
             background: rgba(212, 175, 55, 0.15);
             border-color: rgba(180, 150, 100, 0.5);
         }
-        
+
 
         @media (max-width: 768px) {
             .header-section h1 {
                 font-size: 2.4rem;
             }
-            
+
             .cards-container {
                 gap: 20px;
             }
-            
+
             .card-inner {
                 width: 160px;
                 padding: 20px;
             }
         }
-        
+
         @media (max-width: 576px) {
             .container {
                 padding: 30px 20px;
             }
-            
+
             .header-section h1 {
                 font-size: 2rem;
             }
-            
+
             .header-section {
                 margin-bottom: 40px;
             }
-            
+
             .cards-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 25px;
             }
-            
+
             .card-inner {
                 width: 220px;
             }
-            
+
             .license-badge {
                 font-size: 0.9rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-         <div class="circle-decor-1"></div>
+        <div class="circle-decor-1"></div>
         <div class="circle-decor-2"></div>
         <div class="header-section">
             <h1>xwy工坊</h1>
@@ -259,12 +261,13 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="cards-container">
             <a href="试卷.html" class="card">
                 <div class="card-inner">
                     <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#d4af37"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                             <polyline points="14 2 14 8 20 8"></polyline>
                             <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -275,11 +278,12 @@
                     <span class="card-title">试卷合集</span>
                 </div>
             </a>
-            
+
             <a href="other.html" class="card">
                 <div class="card-inner">
                     <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#d4af37"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="12" y1="8" x2="12" y2="12"></line>
                             <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -289,30 +293,33 @@
                 </div>
             </a>
         </div>
-        
+        <div style="display: flex; align-items: center; justify-content: center;">
+            浏览量：<span class="artalk-pv-count">加载中...</span>
+            评论数：<span class="artalk-comment-count">加载中...</span></div>
         <div class="design-signature">
             xwy工坊
         </div>
-        <div style="display: flex; align-items: center; justify-content: center;">
-浏览量：<span class="artalk-pv-count">加载中...</span>
-评论数：<span class="artalk-comment-count">加载中...</span></div>
-<link href="https://ql2.xwy231321.top/dist/Artalk.css" rel="stylesheet">
-<script src="https://ql2.xwy231321.top/dist/Artalk.js"></script>
 
-<!-- Artalk -->
- <div style="background-color: white;">
-<div id="Comments"></div>
-</div>
+
+
+        <!-- Artalk -->
+        <div style="background-color: rgb(0, 0, 0);">
+            <div id="Comments"></div>
+        </div>
 
     </div>
+
+    <link href="https://ql2.xwy231321.top/dist/Artalk.css" rel="stylesheet">
+    <script src="https://ql2.xwy231321.top/dist/Artalk.js"></script>
     <script>
-  Artalk.init({
-    el:        '#Comments',        
-    pageKey:   '/index.html',                
-    pageTitle: 'xwy工坊', 
-    server:    'https://ql2.xwy231321.top',  
-    site:      'xwy工坊',           
-  })
-</script>
+        Artalk.init({
+            el: '#Comments',
+            pageKey: '/index.html',
+            pageTitle: 'xwy工坊',
+            server: 'https://ql2.xwy231321.top',
+            site: 'xwy工坊',
+        })
+    </script>
 </body>
+
 </html>
