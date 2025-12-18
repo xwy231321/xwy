@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,11 +211,19 @@
 
         /* 动画效果 */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .announcement-card, header {
+        .announcement-card,
+        header {
             animation: fadeIn 0.8s ease-out forwards;
         }
 
@@ -223,44 +232,44 @@
             body {
                 padding: 15px;
             }
-            
+
             header {
                 padding: 15px;
                 margin-bottom: 20px;
             }
-            
+
             h1 {
                 font-size: 2rem;
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .announcement-card {
                 padding: 25px 20px;
                 margin: 20px auto;
             }
-            
+
             h2 {
                 font-size: 1.5rem;
             }
-            
+
             h3 {
                 font-size: 1.3rem;
             }
-            
+
             .github-link {
                 font-size: 1.2rem;
                 padding: 18px 15px;
             }
-            
+
             .url-display {
                 font-size: 0.95rem;
             }
-            
+
             .divider {
                 margin: 20px 0;
             }
-            
+
             .highlight-box {
                 padding: 20px 15px;
             }
@@ -270,25 +279,26 @@
             h1 {
                 font-size: 1.7rem;
             }
-            
+
             h2 {
                 font-size: 1.4rem;
             }
-            
+
             h3 {
                 font-size: 1.2rem;
             }
-            
+
             .github-link {
                 font-size: 1.1rem;
             }
-            
+
             .url-display {
                 font-size: 0.85rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -297,23 +307,23 @@
                 <span>🌌 其他公告</span>
             </h1>
         </header>
-        
+
         <div class="announcement-card">
             <div class="card-pattern"></div>
-            
+
             <div class="notice-section">
                 <h2><i class="fas fa-bullhorn"></i> 📢 通知</h2>
-                
+
                 <h3><i class="fas fa-ban"></i> 🚫 公众号无限期停更</h3>
                 <div class="divider"></div>
-                
+
                 <h3><i class="fas fa-globe"></i> 🌐 网站视近期情况开放</h3>
                 <div class="divider"></div>
             </div>
-            
+
             <div class="highlight-box">
                 <h2><i class="fas fa-chart-line"></i> 📊 当前资源状态</h2>
-                
+
                 <div class="status-item">
                     <h3><i class="fas fa-check-circle"></i> ✅ GitHub仓库已更新完毕</h3>
                     <div class="status-badge">
@@ -321,7 +331,7 @@
                         <span>最新版本: v1.0.7(未发布)</span>
                     </div>
                 </div>
-                
+
                 <div class="status-item">
                     <h3><i class="fas fa-cloud-upload-alt"></i> 📈 已同步云盘所有资料90%</h3>
                     <div class="status-badge">
@@ -330,46 +340,62 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="highlight-box blue">
                 <h2><i class="fas fa-hands-helping"></i> 🤝 试卷贡献方式</h2>
-                
+
                 <h3><i class="fas fa-lightbulb"></i> 💡 如有资料提供：</h3>
                 <h3><i class="fas fa-link"></i> 🔗 请直接发起</h3>
-                
+
                 <div class="github-links">
                     <a href="https://github.com/xwy231321/xwy/issues" class="github-link" style="margin-top: 30px;">
                         <i class="fab fa-github"></i> 👉 Issues
                     </a>
-                    
+
                     <a href="https://github.com/xwy231321/xwy/pulls" class="github-link">
                         <i class="fas fa-code-branch"></i> 👉 PR (Pull Requests)
                     </a>
                 </div>
             </div>
-            
+
             <div class="access-section">
                 <h2><i class="fas fa-door-open"></i> 🌐 当前页面访问入口</h2>
-                
+
                 <a href="https://alist.xwy231321.work/" class="github-link">
                     <i class="fas fa-external-link-alt"></i> GitHub Pages 链接
                 </a>
-                
+
                 <p class="url-display">https://alist.xwy231321.work/</p>
             </div>
         </div>
-        
+
         <footer>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                浏览量：<span class="artalk-pv-count">加载中...</span>
+                评论数：<span class="artalk-comment-count">加载中...</span></div>
             <p>© 2025 xwy工坊 | 知识共享平台</p>
             <p>联系我们: xwy231321@gmail.com</p>
         </footer>
     </div>
-    
+    <div style="background-color: rgb(0, 0, 0);">
+        <div id="Comments"></div>
+    </div>
+    <link href="https://ql2.xwy231321.top/dist/Artalk.css" rel="stylesheet">
+    <script src="https://ql2.xwy231321.top/dist/Artalk.js"></script>
+    <script>
+        Artalk.init({
+            el: '#Comments',
+            pageKey: '/other.html',
+            pageTitle: 'xwy工坊',
+            server: 'https://ql2.xwy231321.top',
+            site: 'xwy工坊',
+        })
+    </script>
     <script>
         // 添加简单的动画效果
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const elements = document.querySelectorAll('.highlight-box, .github-link');
-            
+
             elements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.opacity = 0;
@@ -381,4 +407,5 @@
         });
     </script>
 </body>
+
 </html>
