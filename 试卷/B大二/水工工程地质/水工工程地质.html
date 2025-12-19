@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xwy工坊</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -39,7 +42,7 @@
             font-size: 2.8rem;
             color: #2c3e50;
             margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
@@ -52,7 +55,7 @@
         .file-browser {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             padding: 30px;
             min-height: 600px;
             margin-bottom: 40px;
@@ -81,7 +84,7 @@
             color: #666;
             display: flex;
             align-items: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .path-display i {
@@ -103,12 +106,12 @@
             border-radius: 14px;
             padding: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .folder-group:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
             border-color: #d6e4ff;
         }
 
@@ -141,12 +144,12 @@
             padding: 16px;
             flex: 1;
             min-width: 200px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
             transition: all 0.2s ease;
         }
 
         .subfolder:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
             transform: translateY(-3px);
             border-color: #c2e0ff;
         }
@@ -199,17 +202,17 @@
             background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
             box-shadow: 0 4px 6px rgba(255, 75, 43, 0.2);
         }
-        
+
         .pdf-btn:hover {
             background: linear-gradient(135deg, #e03a60 0%, #e04327 100%);
             box-shadow: 0 6px 10px rgba(255, 75, 43, 0.3);
         }
-        
+
         .doc-btn {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             box-shadow: 0 4px 6px rgba(17, 153, 142, 0.2);
         }
-        
+
         .doc-btn:hover {
             background: linear-gradient(135deg, #0d7c74 0%, #2ec26a 100%);
             box-shadow: 0 6px 10px rgba(17, 153, 142, 0.3);
@@ -219,12 +222,12 @@
             background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
             box-shadow: 0 4px 6px rgba(247, 151, 30, 0.2);
         }
-        
+
         .img-btn:hover {
             background: linear-gradient(135deg, #e08a1b 0%, #e6be00 100%);
             box-shadow: 0 6px 10px rgba(247, 151, 30, 0.3);
         }
-        
+
         .file-icon {
             width: 20px;
             height: 20px;
@@ -241,7 +244,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 100;
             align-items: center;
             justify-content: center;
@@ -255,7 +258,7 @@
             width: 450px;
             max-width: 90%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             transform: translateY(-20px);
             animation: modalAppear 0.4s ease forwards;
         }
@@ -320,7 +323,7 @@
 
         .modal-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         footer {
@@ -338,7 +341,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 200;
             align-items: center;
             justify-content: center;
@@ -356,14 +359,14 @@
             max-width: 100%;
             max-height: 80vh;
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .close-preview {
             position: absolute;
             top: -40px;
             right: -10px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             border: none;
             color: white;
             width: 36px;
@@ -375,7 +378,7 @@
         }
 
         .close-preview:hover {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.5);
             transform: scale(1.1);
         }
 
@@ -384,35 +387,36 @@
             .folders-container {
                 flex-direction: column;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .modal-buttons {
                 flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>文件浏览器</h1>
             <p class="subtitle">浏览仓库目录结构，预览或下载您需要的文件，pdf支持预览，其余请下载</p>
         </header>
-        
+
         <main class="file-browser">
             <div class="path-display">
                 <i class="fas fa-folder"></i>
-                <span>当前路径：/A大一/军事理论</span>
+                <span>当前路径：/B大二/水工工程地质</span>
             </div>
-            
+
             <div class="folders-container" id="foldersContainer">
                 <!-- 文件夹组将由JavaScript动态生成 -->
             </div>
         </main>
-        
+
         <!-- 文件操作模态框 -->
         <div class="modal" id="fileModal">
             <div class="modal-content">
@@ -431,7 +435,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 图片预览模态框 -->
         <div class="image-preview-modal" id="imagePreviewModal">
             <div class="image-preview-content">
@@ -441,159 +445,76 @@
                 </button>
             </div>
         </div>
-        
+
         <footer>
-            <<p align="center"><a href="https://ql.xwy231321.top/share/eM2DU9wGURL0Mzki" target="_blank"
+            <p>© 2025 xwy工坊</p>
+            <p align="center"><a href="https://ql.xwy231321.top/share/eM2DU9wGURL0Mzki" target="_blank"
                     style="color:#409EFF;">
                     <span>访问数据</span>
                 </a>
             </p>
-            <p>© 2025 xwy工坊</p>
         </footer>
     </div>
     <script defer src="https://ql.xwy231321.top/script.js" data-website-id="71cf57e5-71f6-4b14-9a37-3faf09270706"></script>
     <script>
         // 根据提供的目录结构构建文件树
         const repoStructure = {
-  "root": [
-    {
-      name: "",
-      type: "folder",
-      children: [
-        {
-          name: "2526试卷1闭卷纸质",
-          type: "folder",
-          children: [
-            {
-              name: "1.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "2.jpg",
-              type: "file",
-              fileType: "img"
-            }
-          ]
-        },
-        {
-          name: "2526试卷2",
-          type: "folder",
-          children: [
-            {
-              name: "1.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "2.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "3.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "4.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "5.jpg",
-              type: "file",
-              fileType: "img"
-            }
-          ]
-        },
-        {
-          name: "军事理论材料",
-          type: "folder",
-          children: [
-            {
-              name: "军事理论.docx",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "军事理论笔记终极版(1).doc",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "军事理论材料.docx",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "军事理论简答题(1)(1).docx",
-              type: "file",
-              fileType: "doc"
-            }
-          ]
-        },
-        {
-          name: "考试出题类型-23  不全",
-          type: "folder",
-          children: [
-            {
-              name: "1.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "2.jpg",
-              type: "file",
-              fileType: "img"
-            },
-            {
-              name: "3.jpg",
-              type: "file",
-              fileType: "img"
-            }
-          ]
-        },
-        {
-          name: "每章知识点",
-          type: "folder",
-          children: [
-            {
-              name: "12_第二章国家安全.doc",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "12_第三章 军事思想.doc",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "12_第四章 信息化装备.doc",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "12_第五章.现代战争doc.doc",
-              type: "file",
-              fileType: "doc"
-            },
-            {
-              name: "12_第一章中国国防.doc",
-              type: "file",
-              fileType: "doc"
-            }
-          ]
-        },
-        {
-          name: "军事理论.html",
-          type: "file",
-          fileType: "code"
-        }
-      ]
-    }
-  ]
-};
+            "root": [
+                {
+                    name: "",
+                    type: "folder",
+                    children: [
+                        {
+                            name: "25-26水工工程地质",
+                            type: "folder",
+                            children: [
+                                {
+                                    name: "水工工程地质1.jpg",
+                                    type: "file",
+                                    fileType: "img"
+                                },
+                                {
+                                    name: "水工工程地质2.jpg",
+                                    type: "file",
+                                    fileType: "img"
+                                }
+                            ]
+                        },
+                        {
+                            name: "复习资料",
+                            type: "folder",
+                            children: [
+                                {
+                                    name: "水工工程地质.docx",
+                                    type: "file",
+                                    fileType: "doc"
+                                },
+                                {
+                                    name: "水工工程地质复习题1.doc",
+                                    type: "file",
+                                    fileType: "doc"
+                                },
+                                {
+                                    name: "水工工程地质复习题2.doc",
+                                    type: "file",
+                                    fileType: "doc"
+                                },
+                                {
+                                    name: "水工工程地质复习资料（最有用）.doc",
+                                    type: "file",
+                                    fileType: "doc"
+                                }
+                            ]
+                        },
+                        {
+                            name: "水工工程地质.html",
+                            type: "file",
+                            fileType: "code"
+                        }
+                    ]
+                }
+            ]
+        };
 
         // 当前选择的文件路径
         let currentFilePath = '';
@@ -613,7 +534,7 @@
 
         // 获取文件图标
         function getFileIcon(fileType) {
-            switch(fileType) {
+            switch (fileType) {
                 case 'pdf':
                     return '<i class="fas fa-file-pdf"></i>';
                 case 'doc':
@@ -634,10 +555,10 @@
                     return '<i class="fas fa-file"></i>';
             }
         }
-        
+
         // 获取文件按钮类名
         function getFileButtonClass(fileType) {
-            switch(fileType) {
+            switch (fileType) {
                 case 'pdf':
                     return 'file-btn pdf-btn';
                 case 'doc':
@@ -657,29 +578,29 @@
         // 渲染文件夹结构
         function renderFolderStructure() {
             foldersContainer.innerHTML = '';
-            
+
             repoStructure.root.forEach(folder => {
                 const folderGroup = document.createElement('div');
                 folderGroup.className = 'folder-group';
-                
+
                 const folderHeader = `<h3><i class="fas fa-folder"></i> ${folder.name}</h3>`;
                 let subfoldersHTML = '<div class="subfolders">';
-                
+
                 folder.children.forEach(subfolder => {
                     if (subfolder.type === 'file') {
                         // 如果是文件，则跳过（根目录下的文件单独处理）
                         return;
                     }
-                    
+
                     let filesHTML = '';
                     let subsubfoldersHTML = '';
-                    
+
                     // 处理子文件夹下的文件和子子文件夹
                     subfolder.children.forEach(item => {
                         if (item.type === 'file') {
                             const fileType = item.fileType || 'file';
                             const btnClass = getFileButtonClass(fileType);
-                            
+
                             filesHTML += `
                                 <button class="${btnClass}" 
                                         data-path="${folder.name}/${subfolder.name}/${item.name}"
@@ -691,12 +612,12 @@
                         } else if (item.type === 'folder') {
                             // 处理子子文件夹
                             let subsubfilesHTML = '';
-                            
+
                             item.children.forEach(subitem => {
                                 if (subitem.type === 'file') {
                                     const fileType = subitem.fileType || 'file';
                                     const btnClass = getFileButtonClass(fileType);
-                                    
+
                                     subsubfilesHTML += `
                                         <button class="${btnClass}" 
                                                 data-path="${folder.name}/${subfolder.name}/${item.name}/${subitem.name}"
@@ -707,7 +628,7 @@
                                     `;
                                 }
                             });
-                            
+
                             subsubfoldersHTML += `
                                 <div class="subfolder">
                                     <h4><i class="fas fa-folder-open"></i> ${item.name}</h4>
@@ -716,7 +637,7 @@
                             `;
                         }
                     });
-                    
+
                     subfoldersHTML += `
                         <div class="subfolder">
                             <h4><i class="fas fa-folder-open"></i> ${subfolder.name}</h4>
@@ -725,63 +646,63 @@
                         </div>
                     `;
                 });
-                
+
                 subfoldersHTML += '</div>';
-                
+
                 folderGroup.innerHTML = folderHeader + subfoldersHTML;
                 foldersContainer.appendChild(folderGroup);
             });
-            
+
             // 添加文件按钮点击事件
             document.querySelectorAll('.file-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     currentFilePath = this.getAttribute('data-path');
                     currentFileName = this.getAttribute('data-name');
                     currentFileType = this.getAttribute('data-file-type');
                     fileNameDisplay.textContent = `操作文件：${currentFileName}`;
-                    
+
                     // 只有PDF和图片文件显示预览按钮
                     if (currentFileType === 'pdf') {
                         previewBtn.style.display = 'flex';
                     } else {
                         previewBtn.style.display = 'none';
                     }
-                    
+
                     fileModal.style.display = 'flex';
                 });
             });
         }
 
         // 文件操作按钮事件
-        previewBtn.addEventListener('click', function() {
+        previewBtn.addEventListener('click', function () {
             // 根据文件类型处理预览
             if (currentFileType === 'pdf' || currentFileName.endsWith('.pdf')) {
                 // PDF文件使用PDF.js预览
                 const encodedPath = encodeURIComponent(currentFilePath);
-                const previewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=https://alist.xwy231321.work/试卷/A大一/军事理论/${encodedPath}`;
+                const previewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=https://alist.xwy231321.work/试卷/B大二/水工工程地质/${encodedPath}`;
                 window.open(previewUrl, '_blank');
             } else {
                 // 图片文件在当前页面居中弹窗预览
-                const imageUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/A大一/军事理论/${encodeURIComponent(currentFilePath)}`;
+                const imageUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/B大二/水工工程地质/${encodeURIComponent(currentFilePath)}`;
                 previewedImage.src = imageUrl;
                 imagePreviewModal.style.display = 'flex';
             }
             fileModal.style.display = 'none';
         });
 
-        downloadBtn.addEventListener('click', function() {
+        downloadBtn.addEventListener('click', function () {
             const encodedPath = encodeURIComponent(currentFilePath);
-            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/A大一/军事理论/${encodedPath}`;
+            const downloadUrl = `https://github.com/xwy231321/xwy/raw/main/试卷/B大二/水工工程地质/${encodedPath}`;
             window.open(downloadUrl, '_blank');
             fileModal.style.display = 'none';
         });
 
-        cancelBtn.addEventListener('click', function() {
+        cancelBtn.addEventListener('click', function () {
             fileModal.style.display = 'none';
         });
 
         // 点击模态框外部关闭
-        window.addEventListener('click', function(event) {
+        window.addEventListener('click', function (event) {
             if (event.target === fileModal) {
                 fileModal.style.display = 'none';
             } else if (event.target === imagePreviewModal) {
@@ -790,12 +711,15 @@
         });
 
         // 关闭图片预览
-        closeImagePreview.addEventListener('click', function() {
+        closeImagePreview.addEventListener('click', function () {
             imagePreviewModal.style.display = 'none';
         });
 
         // 初始化页面
         document.addEventListener('DOMContentLoaded', renderFolderStructure);
     </script>
+    <script defer src="https://ql.xwy231321.top/script.js"
+        data-website-id="71cf57e5-71f6-4b14-9a37-3faf09270706"></script>
 </body>
+
 </html>

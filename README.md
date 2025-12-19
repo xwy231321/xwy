@@ -8,7 +8,7 @@
 
 <div style="text-align: center; margin-bottom: 40px; padding: 20px 0; border-bottom: 1px solid rgba(180, 150, 100, 0.2); position: relative;">
   <h1 style="font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: #333; margin-bottom: 15px; position: relative; display: inline-block;">
-    xwy工坊
+    xwy工坊 主更新仓库
     <div style="position: absolute; bottom: -8px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, transparent);"></div>
   </h1>
   <div style="margin-top: 10px;">
@@ -22,7 +22,7 @@
 
 
 <div style="display: flex; justify-content: center; gap: 40px; margin: 50px 0;">
-  <a href="试卷.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
+  <a href="https://alist.xwy231321.work/%E8%AF%95%E5%8D%B7.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
     <div style="text-align: center;">
       <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(180, 150, 100, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -37,7 +37,7 @@
     </div>
   </a>
   
-  <a href="other.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
+  <a href="https://alist.xwy231321.work/other.html" style="text-decoration: none; display: block; transition: all 0.3s ease;">
     <div style="text-align: center;">
       <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(180, 150, 100, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
